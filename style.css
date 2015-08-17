@@ -1,0 +1,192 @@
+@import url(http://fonts.googleapis.com/css?family=Bitter:400,700|Lato:100,300,400);
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body, html, .app-container, .app, .action-bar, .note-list, .note-view {
+  height: 100%;
+}
+
+body {
+  font-family: "Helvetica Neue";
+  margin: 0;
+  padding: 0;
+}
+
+body > div {
+  height: 100%;
+}
+
+.action-bar {
+  background: #f8f8f8;
+  border-right: 1px solid #ececec;
+  float: left;
+  height: 100%;
+  width: 73px;
+}
+
+.action-bar__logo {
+  background: url("klarna-logo.png");
+  background-size: cover;
+  height: 34px;
+  margin: 25px auto 50px auto;
+  width: 26px;
+}
+
+.action-bar__new {
+  background: white;
+  border-radius: 40px;
+  border: 1px solid #0072cc;
+  color: #0072cc;
+  cursor: pointer;
+  display: block;
+  font-family: "Arial", sans;
+  font-size: 32px;
+  font-weight: 100;
+  height: 36px;
+  line-height: 36px;
+  margin: 10px auto;
+  text-align: center;
+  width: 36px;
+}
+
+.action-bar__new:hover {
+  background: #0072cc;
+  color: #f8f8f8;
+}
+
+.note-list {
+  float: left;
+  overflow: scroll;
+  width: 400px;
+}
+
+.note-list__title {
+  color: #878787;
+  font-family: "Lato", sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  padding: 25px;
+  text-transform: uppercase;
+}
+
+.note-list__summary {
+  color: #ababab;
+  font-family: "Lato", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 0 25px;
+}
+
+.note-list__container {
+  border-top: 1px solid #eee;
+  list-style: none;
+  margin: 5px 0;
+}
+
+.note-preview {
+  border-top: 1px solid #f6f6f6;
+}
+
+.note-preview.is-selected .note-preview__link {
+  border: 3px solid #ddd;
+}
+
+.note-preview:first-child {
+  border-top: none;
+}
+
+.note-preview__link {
+  background: white;
+  border: 3px solid white;
+  color: #333;
+  display: block;
+  min-height: 80px;
+  padding: 15px 25px;
+  text-decoration: none;
+}
+
+.note-preview__link:hover {
+  background: #0072cc;
+  border: 3px solid #0072cc !important;
+  color: white;
+  text-decoration: none;
+}
+
+.note-preview__link:hover .note-preview__time, .note-preview__link:hover .note-preview__body {
+  color: white;
+}
+
+.note-preview__time {
+  color: #aaa;
+  font-family: "Lato", sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.note-preview__title {
+  font-family: "Bitter", serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 8px 0 5px 0;
+}
+
+.note-preview__body {
+  color: #878787;
+  font-size: 14px;
+}
+
+.note-view {
+  border-left: 1px solid #eee;
+  margin-left: 474px;
+  width: auto;
+}
+
+.note-view__actions {
+  line-height: 24px;
+  padding: 15px 20px;
+}
+
+.note-view__actions__trash {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAC30lEQVR42u2ZTUhUURTHJxHKCgoiUoOKQsggF7XQwEVudCGBm4JaVBuJFkELqaDFgBnUwoUVrYLRUed73osGZtPi1cZFUNLCTVEEKagpMSQkY1Dnwpk4c5g7OPPeOzMD98CFOfddzv3/7se5774JBIwZM2as4S2VSnUkk8k0lByUv5qinlmqbT2KXysjnJe1uoJQo1qB+EKx6gkgVwVArp4AisS5bWcAChaPxy9AR8tVLA+vyrLS4GZkayn+P0SjAyy5XUIrtRTvaglxi8ViPayDOQ8SwByNmUgkzvm2qQGgkwEseACwwABO+QYQjUbbGcD3wjPo+J6qg1eE5xUCLDGAw74BhMPhPbrTFDq+iXUzFQJsMIC9fh9aW7RDsB0IcAVn4NV2YzmO08wG5I/EqVv01mnb9n4EGMS6N9uNZVnWAQawLgHwhXaaTqePIkAv1s1XkBROMICvEgAfaKewZLoQ4DQVEQwGmwCuTYksA3CGAcxLADhs0/UiwJHCZQX9VvRXyhyUfQzAkbh92QxgEAXvw7o8+i3o/y4DMMRm05YAmKSdgojL/HVZiUc/r/xsNruzVCxod50BTEoATLBpv0EAfqq6SCRyCP0fCHRQsxxvM4AJ3wFgY44ygDtE0DcU0kEzlm4jw7Mgy2ijEpecEQbwgAj6iCN+lmYslW00sznOluOIBMAwA3hCBL1FIX0sY53XALxgAMMSafSibuOp1wgUMoRtX1K/BECKAVySAOjXpT74PY1CrmHbKWx3VQPwmgEMSGShbt3hA8+eYd0t9J9Sv0SsdzSWujBJAJxkM/CeZKiHuInvY9sx6peYzU8MoFMijbaxGfhMNvhdrHtMfQB5pAEoum+rC5PvAJlMZjcDWHWxnzZpLHVhkvoSlycdb1YTIxQK7WIDsSX5KXHRh08oi5L/B8x6DQAxw2IAeJNa9xBgFTbwsVr8K6NO2l8uhOcgThzK8YAxY8aMNaz9A0wVuz77UzlpAAAAAElFTkSuQmCC");
+  background-size: cover;
+  border: 0;
+  cursor: pointer;
+  height: 24px;
+  vertical-align: middle;
+  width: 24px;
+}
+
+.note-view__actions__status {
+  color: #aaa;
+  display: inline-block;
+  float: right;
+  font-family: "Lato", sans-serif;
+  vertical-align: middle;
+}
+
+.note-view__title {
+  border: 0;
+  color: #33a5ff;
+  font-family: "Bitter", serif;
+  font-size: 36px;
+  font-weight: 400;
+  outline: none;
+  padding: 15px 50px;
+  width: 100%;
+}
+
+.note-view__body {
+  border: 0;
+  display: block;
+  font-family: inherit;
+  font-size: 18px;
+  min-height: 500px;
+  outline: none;
+  padding: 0 50px;
+  width: 80%;
+}
