@@ -1,5 +1,6 @@
 import { createStore, compose } from 'redux';
 import { devTools } from 'redux-devtools';
+import {reducer as formReducer} from 'redux-form';
 
 const initialState = {
   notes: [
@@ -59,6 +60,6 @@ function update(state = initialState, action) {
   }
 }
 
-const finalCreateStore = compose(devTools(), createStore);
+const finalCreateStore = compose(devTools(), formReducer)(createStore);
 const store = finalCreateStore(update);
 export default store;

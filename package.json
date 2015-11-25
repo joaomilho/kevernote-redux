@@ -3,23 +3,29 @@
   "version": "0.0.1",
   "repository": "https://github.com/joaomilho/kevernote-redux",
   "description": "Kevernote in Redux",
+  "license": "WTFPL",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "classnames": "^2.1.3",
-    "react": "^0.13.3",
-    "react-redux": "^0.8.2",
-    "redux-devtools": "^1.0.2",
-    "redux": "^1.0.1"
+    "classnames": "^2.2.0",
+    "react": "^0.14.0",
+    "react-redux": "^3.0.0",
+    "redux-devtools": "^2.1.5",
+    "redux": "^3.0.4"
   },
   "author": "<juan.lulkin@klarna.com>",
   "devDependencies": {
-    "babel": "^5.6.14",
-    "babel-core": "^5.8.5",
-    "babel-loader": "^5.3.1",
-    "react-hot-loader": "^1.2.8",
-    "webpack": "^1.10.1",
-    "webpack-dev-server": "^1.10.1"
+    "babel": "^6.1.18",
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.0.18",
+    "babel-preset-react": "^6.0.18",
+    "babel-preset-stage-0": "^6.0.18",
+    "react-dom": "^0.14.3",
+    "react-hot-loader": "^1.3.0",
+    "redux-form": "^3.0.12",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
   }
 }

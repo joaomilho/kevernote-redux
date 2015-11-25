@@ -3,6 +3,7 @@ import React from 'react';
 export default class NotePreview extends React.Component {
   render() {
     let body = this.props.note.body;
+    console.log("body", this.props.note);
     body = body.length > 100 ? body.slice(0, 97) + '...' : body;
 
     return (

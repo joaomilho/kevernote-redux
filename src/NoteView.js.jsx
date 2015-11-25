@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {reduxForm} from 'redux-form';
 
-export default class NoteView extends React.Component {
+export default class NoteView extends Component {
 
   updateTitle(event) {
     this.props.update({ update: { title: event.target.value } });
   }
 
-  updateBody() {
+  updateBody(event) {
     this.props.update({ update: { body: event.target.value } });
   }
 
@@ -19,8 +20,8 @@ export default class NoteView extends React.Component {
             { this.props.note.status || "Saved" }
           </span>
         </nav>
-        <input className="note-view__title" onChange={ this.updateTitle.bind(this) } value={this.props.note.title} />
-        <textarea className="note-view__body" onChange={ this.updateBody.bind(this) } value={this.props.note.body} />
+        <input className="note-view__title" onChange={ this.updateTitle.bind(this) } defaultValue={this.props.note.title} />
+        <textarea className="note-view__body" onChange={ this.updateBody.bind(this) } defaultValue={this.props.note.body} />
       </article>
     );
   }

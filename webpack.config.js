@@ -26,7 +26,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.(es6|js|jsx)$/,
-      loaders: ['react-hot', 'babel-loader'],
+      loaders: ['react-hot', 'babel'],
       exclude: /node_modules/,
       include: __dirname
     }]
