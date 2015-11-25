@@ -12,7 +12,7 @@ export default class NoteList extends React.Component {
           { this.props.notes.length } { this.props.notes.length == 1 ? "note" : "notes" }
         </div>
         <ul className="note-list__container">
-          {this.props.notes.map(note => <NotePreview key={note.id} select={this.props.select} note={note} selected={this.props.selectedNoteId && note.id == this.props.selectedNoteId} />)}
+          {this.props.notes.map(note => <NotePreview key={note.id} note={note} selected={this.props.selectedNoteId && note.id == this.props.selectedNoteId} />)}
         </ul>
       </aside>
     );

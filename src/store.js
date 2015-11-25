@@ -1,6 +1,5 @@
 import { createStore, compose } from 'redux';
 import { devTools } from 'redux-devtools';
-import {reducer as formReducer} from 'redux-form';
 
 const initialState = {
   notes: [
@@ -14,52 +13,32 @@ const initialState = {
   uid: 1
 };
 
-function updateNote(state, update) {
-  return state.notes.map((note) => {
-    if(note.id == state.selectedNoteId)
-      return {...note, ...update};
-    else
-      return note;
-  });
-}
-
 function update(state = initialState, action) {
+  let notes;
+
   switch (action.type) {
   case 'ADD':
     const id = state.uid + 1;
-
-    return {
-      notes: [{id: id, title: `Note ${id}`, body: "Write here"}, ...state.notes],
-      selectedNoteId: id,
-      uid: id
-    };
+    const newNote = {id: id, title: `Note ${id}`, body: "Write here"};
+    return {notes: [newNote, ...state.notes], selectedNoteId: id, uid: id};
 
   case 'SELECT':
-    return {
-      ...state,
-      selectedNoteId: action.id
-    };
+    return {...state, selectedNoteId: action.id};
 
-  case 'DELETE':
-    const notes = state.notes.filter(note => note.id != state.selectedNoteId);
+  case 'TRASH':
+    notes = state.notes.filter(note => note.id != state.selectedNoteId);
     const selectedId = notes.length ? notes[0].id : null;
-    return {
-      ...state,
-      notes: notes,
-      selectedNoteId: selectedId
-    };
+    return {...state, notes: notes, selectedNoteId: selectedId};
 
   case 'UPDATE':
-    return {
-      ...state,
-      notes: updateNote(state, action.update)
-    };
+    notes = state.notes.map(note => note.id == state.selectedNoteId ? {...note, ...action.update} : note);
+    return {...state, notes: notes};
 
   default:
     return state
   }
 }
 
-const finalCreateStore = compose(devTools(), formReducer)(createStore);
+const finalCreateStore = compose(devTools())(createStore);
 const store = finalCreateStore(update);
 export default store;
