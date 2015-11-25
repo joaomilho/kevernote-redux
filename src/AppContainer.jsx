@@ -10,7 +10,7 @@ export default class AppContainer extends React.Component {
     return  (
       <div>
         <Provider store={store}>
-          <App />
+          {() => <App /> }
         </Provider>
         <DebugPanel top bottom right>
           <DevTools store={store} monitor={LogMonitor} />

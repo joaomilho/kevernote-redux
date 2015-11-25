@@ -1,15 +1,15 @@
 var path = require('path');
+var root = path.join(__dirname, '..');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
     './src/main'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(root, 'dist'),
     filename: 'bundle.js',
     publicPath: '/static/'
   },
@@ -20,15 +20,11 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
-  resolveLoader: {
-    fallback: path.join(__dirname, 'node_modules')
-  },
   module: {
     loaders: [{
       test: /\.jsx?$/,
       loaders: ['react-hot', 'babel'],
-      exclude: /node_modules/,
-      include: __dirname
+      include: path.join(root, 'src')
     }]
   }
 };
