@@ -11,6 +11,7 @@ import AppContainer from '../src/AppContainer';
 //AppState = require('./server/AppState.js');
 //const index = '<!DOCTYPE html><html><head></head><body>{{component}}</body></html>';
 import fs from 'fs';
+import buildStore from '../src/store';
 
 const index = fs.readFileSync('index.html', {encoding: 'utf-8'});
 
@@ -24,11 +25,14 @@ express()
     const initialState = {
       notes: notes,
       selectedNoteId: notes[0] ? notes[0].id : null,
-      uid: Math.max(notes.map(note => note.id))
+      uid: Math.max.apply(this, notes.map(note => note.id))
     };
 
-    let componentHtml = React.renderToString(<AppContainer />);
-    let html = index.replace('{{component}}', componentHtml);
+    let store = buildStore(initialState);
+    let componentHtml = React.renderToString(<AppContainer store={store}/>);
+    let html = index
+      .replace('{{component}}', componentHtml)
+      .replace('{{initialState}}', JSON.stringify(store.getState()));
     res.type('html').send(html);
   })
   .get('/notes', (_, res) => res.json(Note.all()))
