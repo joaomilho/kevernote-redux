@@ -5,7 +5,9 @@
   "description": "Kevernote in Redux",
   "license": "WTFPL",
   "scripts": {
-    "start": "node webpack/server.js"
+    "start": "concurrent --kill-others \"npm run api\" \"npm run webpack\"",
+    "webpack": "node bin/webpack.js",
+    "api": "node bin/api.js"
   },
   "dependencies": {
     "classnames": "^2.2.0",
@@ -22,6 +24,9 @@
     "babel-preset-es2015": "^6.0.18",
     "babel-preset-react": "^6.0.18",
     "babel-preset-stage-0": "^6.0.18",
+    "body-parser": "^1.14.1",
+    "concurrently": "^1.0.0",
+    "express": "^4.13.3",
     "react-hot-loader": "^1.3.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

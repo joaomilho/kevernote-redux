@@ -4,14 +4,14 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:3001',
     'webpack/hot/only-dev-server',
     './src/main'
   ],
   output: {
     path: path.join(root, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: 'http://localhost:3001/static/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

@@ -1,6 +1,8 @@
-var webpack = require('webpack');
-var WebpackDevServer = require('webpack-dev-server');
-var config = require('./webpack.config');
+require('babel-core/register')
+
+import webpack from 'webpack';
+import WebpackDevServer from 'webpack-dev-server';
+import config from './webpack.config';
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
@@ -9,10 +11,10 @@ new WebpackDevServer(webpack(config), {
   stats: {
     colors: true
   }
-}).listen(3000, 'localhost', function (err) {
+}).listen(3001, 'localhost', (err) => {
   if (err) {
     console.log(err);
   }
 
-  console.log('Listening at localhost:3000');
+  console.log('Webpack at localhost:3001');
 });

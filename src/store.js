@@ -1,19 +1,7 @@
 import { createStore, compose } from 'redux';
 import { devTools } from 'redux-devtools';
 
-const initialState = {
-  notes: [
-    {
-      id: 1,
-      title: "Note 1",
-      body: "Bar"
-    }
-  ],
-  selectedNoteId: 1,
-  uid: 1
-};
-
-function update(state = initialState, action) {
+function update(state, action) {
   let notes;
 
   switch (action.type) {
@@ -40,5 +28,5 @@ function update(state = initialState, action) {
 }
 
 const finalCreateStore = compose(devTools())(createStore);
-const store = finalCreateStore(update);
+const store = finalCreateStore(update, {notes: []});
 export default store;
