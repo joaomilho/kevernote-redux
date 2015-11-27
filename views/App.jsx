@@ -3,7 +3,8 @@ import ActionBar from './ActionBar';
 import NoteList from './NoteList';
 import NoteView from './NoteView';
 import { connect } from 'react-redux';
-import connectActions from './actions';
+import actions from '../store/actions';
+import { bindActionCreators } from 'redux'
 
 class App extends React.Component {
 
@@ -24,9 +25,7 @@ class App extends React.Component {
   }
 }
 
-const connectState = state => ({data: state});
-
 export default connect(
-  connectState,
-  connectActions
+  state => ({data: state}),
+  dispatch => ({actions: bindActionCreators(actions, dispatch)})
 )(App);

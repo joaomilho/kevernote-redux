@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { devTools } from 'redux-devtools';
-import update from './update';
+import reducer from './reducer';
 import thunk from 'redux-thunk';
 
 const finalCreateStore = compose(
@@ -8,4 +8,4 @@ const finalCreateStore = compose(
   devTools()
 )(createStore);
 
-export default function(data){ return finalCreateStore(update, data); }
+export default function(data){ return finalCreateStore(reducer, data); }

@@ -1,5 +1,5 @@
 import React from 'react';
-import AppContainer from './AppContainer';
-import store from '../src/clientStore';
+import AppContainer from '../views/AppContainer';
+import store from './clientStore';
 
 React.render(<AppContainer store={store} />, document.getElementById('root'));

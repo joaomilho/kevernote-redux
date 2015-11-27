@@ -1,4 +1,4 @@
-# Kevernote, in React + Redux
+# Kevernote, in React + Redux + Express
 
 #### About
 
@@ -9,6 +9,9 @@ This is a clone of Evernote, used to benchmark technologies. The list of version
 - [Kevernote in React+Redux](https://github.com/joaomilho/kevernote-redux)
 
 - [Kevernote in React+Reflux](https://github.com/joaomilho/kevernote-reflux)
+
+This version features server-side rendering with "isomorphic" (aka universal)
+stuff.
 
 #### Running
 

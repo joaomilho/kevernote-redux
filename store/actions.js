@@ -1,4 +1,3 @@
-import { bindActionCreators } from 'redux'
 import { request, asyncAction } from './helpers/async'
 
 let add = asyncAction((dispatch, {uid}) =>{
@@ -33,13 +32,9 @@ let update = asyncAction((dispatch, {selectedNoteId}, update) =>{
 
 let select = id => ({type: 'SELECT', id});
 
-const actions = {
+export default {
   add:    add,
   trash:  trash,
   select: select,
   update: update
 };
-
-export default function (dispatch){
-  return {actions: bindActionCreators(actions, dispatch)}
-}

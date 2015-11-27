@@ -1,7 +1,7 @@
 import React from 'react';
-import AppContainer from '../src/AppContainer';
+import AppContainer from '../views/AppContainer';
 import fs from 'fs';
-import buildStore from '../src/store';
+import buildStore from '../store/buildStore';
 import Note from './models/note';
 
 const index = fs.readFileSync('server/index.html', {encoding: 'utf-8'});

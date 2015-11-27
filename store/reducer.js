@@ -2,12 +2,13 @@ function updateSelectedNote(state, update){
   return {...state, notes: state.notes.map(note => note.id == state.selectedNoteId ? {...note, ...update} : note)};
 }
 
-export default function update(state, action) {
+export default function reducer(state, action) {
   let notes;
 
   switch (action.type) {
   case 'OPTIMISTIC_ADD':
     let {newNote} = action;
+    history.pushState(state, `Kevernote #${newNote.id}`, `/notes/${newNote.id}`);
     return {notes: [{...newNote, status: 'Saving...'}, ...state.notes], selectedNoteId: newNote.id, uid: newNote.id};
 
   case 'ADD_COMPLETE':
@@ -27,7 +28,6 @@ export default function update(state, action) {
 
   case 'OPTIMISTIC_UPDATE':
     return updateSelectedNote(state, {status: 'Saving...'})
-
 
   case 'UPDATE_COMPLETE':
     return updateSelectedNote(state, {status: 'Saved'})

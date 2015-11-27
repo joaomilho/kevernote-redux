@@ -1,3 +1,3 @@
-import buildStore from '../src/store';
+import buildStore from '../store/buildStore';
 
 export default buildStore(window.initialState);
