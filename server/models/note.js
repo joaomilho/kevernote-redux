@@ -1,14 +1,15 @@
 import fs from 'fs';
 
+const db_path = 'server/db/notes.json';
+
 export default class Note {
   static all() {
-    const notes = JSON.parse(fs.readFileSync('notes.json', {encoding: 'utf-8'}))['notes'];
+    const notes = JSON.parse(fs.readFileSync(db_path, {encoding: 'utf-8'}))['notes'];
     return notes;
   }
 
   static create(note) {
     note.createdAt = new Date().getTime();
-    console.log("CREATE", note, this.all());
     const notes = [note, ...this.all()];
     return this.save(notes);
   }
@@ -33,7 +34,7 @@ export default class Note {
   }
 
   static save(notes) {
-    fs.writeFileSync('notes.json', JSON.stringify({notes: notes}), {encoding: 'utf-8'});
+    fs.writeFileSync(db_path, JSON.stringify({notes: notes}), {encoding: 'utf-8'});
     return true;
   }
 }

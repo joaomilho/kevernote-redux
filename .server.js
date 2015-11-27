@@ -1,2 +1,2 @@
 require('babel-core/register')
-require('../api/api');
+require('./server/server');
