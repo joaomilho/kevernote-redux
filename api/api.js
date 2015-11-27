@@ -13,30 +13,36 @@ import buildStore from '../src/store';
 
 const index = fs.readFileSync('index.html', {encoding: 'utf-8'});
 
-express()
-  .use('/static', express.static('static'))
-  .use(bodyParser.json())
-  .use(logger)
-  .get('/', (req, res) => {
-
-    const notes = Note.all()
-    const initialState = {
-      notes: notes,
-      selectedNoteId: notes[0] ? notes[0].id : null,
-      uid: Math.max.apply(this, notes.map(note => note.id))
-    };
-
-    let store = buildStore(initialState);
-    let componentHtml = React.renderToString(<AppContainer store={store}/>);
-    let html = index
-      .replace('{{component}}', componentHtml)
-      .replace('{{initialState}}', JSON.stringify(store.getState()));
-    res.type('html').send(html);
-  })
+const api = express()
   .get('/notes', (_, res) => res.json(Note.all()))
   .post('/notes', ok(req => Note.create(req.body)))
   .delete('/notes/:id', ok(req => Note.delete(req.params.id)))
   .put('/notes/:id', ok(req => Note.update(req.params.id, req.body)))
-  //.use((req, res) => res.json(req.method) )
+
+
+function render(id = null) {
+  const notes = Note.all()
+  const uid = notes[0] ? notes[0].id : null;
+  const initialState = {
+    notes: notes,
+    selectedNoteId: id || uid,
+    uid: uid
+  };
+
+  let store = buildStore(initialState);
+  let componentHtml = React.renderToString(<AppContainer store={store}/>);
+  let html = index
+    .replace('{{component}}', componentHtml)
+    .replace('{{initialState}}', JSON.stringify(store.getState()));
+  return html;
+}
+
+express()
+  .use('/static', express.static('static'))
+  .use(bodyParser.json())
+  .use(logger)
+  .use('/api', api)
+  .get('/', (req, res) => res.type('html').send(render()))
+  .get('/notes/:id', (req, res) => res.type('html').send(render(req.params.id)))
   .use(errorHandler)
   .listen(3000, 'localhost', () => console.log('API listening at http://localhost:3000'));

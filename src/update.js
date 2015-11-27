@@ -14,6 +14,7 @@ export default function update(state, action) {
     return updateSelectedNote(state, {status: 'Saved'})
 
   case 'SELECT':
+    history.pushState(state, `Kevernote #${action.id}`, `/notes/${action.id}`);
     return {...state, selectedNoteId: action.id};
 
   case 'TRASH':
