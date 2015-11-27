@@ -6,8 +6,8 @@
   "license": "WTFPL",
   "scripts": {
     "start": "concurrent --kill-others \"npm run api\" \"npm run webpack\"",
-    "webpack": "node bin/webpack.js",
-    "api": "node bin/api.js"
+    "webpack": "node .webpack.js",
+    "api": "node .server.js"
   },
   "dependencies": {
     "classnames": "^2.2.0",

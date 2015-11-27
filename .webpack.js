@@ -1,3 +1,3 @@
-require('babel-core/register')
-require('../webpack/server');
+require('babel-core/register');
+require('./webpack/server');
 
