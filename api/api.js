@@ -8,8 +8,6 @@ const ok = (fn) => (req, res) => res.sendStatus(fn(req) ? 200 : 500);
 
 import React from 'react';
 import AppContainer from '../src/AppContainer';
-//AppState = require('./server/AppState.js');
-//const index = '<!DOCTYPE html><html><head></head><body>{{component}}</body></html>';
 import fs from 'fs';
 import buildStore from '../src/store';
 
@@ -17,7 +15,7 @@ const index = fs.readFileSync('index.html', {encoding: 'utf-8'});
 
 express()
   .use('/static', express.static('static'))
-  .use(bodyParser.urlencoded({ extended: false }))
+  .use(bodyParser.json())
   .use(logger)
   .get('/', (req, res) => {
 
@@ -38,6 +36,7 @@ express()
   .get('/notes', (_, res) => res.json(Note.all()))
   .post('/notes', ok(req => Note.create(req.body)))
   .delete('/notes/:id', ok(req => Note.delete(req.params.id)))
-  .patch('/notes/:id', ok(req => Note.update(req.params.id, req.body)))
+  .put('/notes/:id', ok(req => Note.update(req.params.id, req.body)))
+  //.use((req, res) => res.json(req.method) )
   .use(errorHandler)
   .listen(3000, 'localhost', () => console.log('API listening at http://localhost:3000'));

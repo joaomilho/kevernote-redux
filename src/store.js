@@ -1,10 +1,11 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { devTools } from 'redux-devtools';
 import update from './update';
+import thunk from 'redux-thunk';
 
-const finalCreateStore = compose(devTools())(createStore);
+const finalCreateStore = compose(
+  applyMiddleware(thunk),
+  devTools()
+)(createStore);
 
-export default function buildStore(data){
-  console.log("BUILDING STORE WITH", data);
-  return finalCreateStore(update, data);
-}
+export default function(data){ return finalCreateStore(update, data); }
