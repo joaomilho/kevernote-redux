@@ -4,7 +4,7 @@ import fs from 'fs';
 import buildStore from '../store/buildStore';
 import Note from './models/note';
 
-const index = fs.readFileSync('server/index.html', {encoding: 'utf-8'});
+const index = fs.readFileSync('index.html', {encoding: 'utf-8'});
 
 export default function render(id = null) {
   const notes = Note.all()
@@ -19,6 +19,6 @@ export default function render(id = null) {
   let componentHtml = React.renderToString(<AppContainer store={store}/>);
   let html = index
     .replace('{{component}}', componentHtml)
-    .replace('{{initialState}}', JSON.stringify(store.getState()));
+    .replace(/(window\.initialState = )(initialState)/, "$1" + JSON.stringify(store.getState()));
   return html;
 }

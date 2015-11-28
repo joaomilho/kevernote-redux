@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Kevernote Redux</title>
+  </head>
+  <body>
+    <div id="root">{{component}}</div>
+    <script>
+      // if no server running, set some mock initial state
+      initialState = {
+        notes: [{id: 1, title: "Server not running #1", body: "Type here!"}],
+        selectedNoteId: 1,
+        uid: 1
+      }
+
+      // server rendering initial state will replace that
+      window.initialState = initialState;
+    </script>
+    <script src="http://localhost:3001/static/bundle.js"></script>
+  </body>
+</html>
