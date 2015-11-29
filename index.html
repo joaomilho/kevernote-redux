@@ -8,11 +8,12 @@
     <script>
       // if no server running, set some mock initial state
       initialState = {
-        notes: [{id: 1, title: "Server not running #1", body: "Type here!"}],
-        selectedNoteId: 1,
-        uid: 1
+        notes: [
+          {id: 22, title: "Server not running #2", body: "Type here!"},
+          {id: 11, title: "Server not running #1", body: "Type here!"}
+        ],
+        selected: 0
       }
-
       // server rendering initial state will replace that
       window.initialState = initialState;
     </script>

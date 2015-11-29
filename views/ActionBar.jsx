@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default class ActionBar extends React.Component {
+import { connect } from 'react-redux';
+import actions from '../store/actions';
+import { bindActionCreators } from 'redux'
+
+class ActionBar extends React.Component {
   render() {
 
     return (
@@ -12,3 +16,8 @@ export default class ActionBar extends React.Component {
     );
   }
 }
+
+export default connect(
+  null,
+  dispatch => bindActionCreators({add: actions.add}, dispatch)
+)(ActionBar);

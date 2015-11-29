@@ -1,38 +1,48 @@
-function updateSelectedNote(state, update){
-  return {...state, notes: state.notes.map(note => note.id == state.selectedNoteId ? {...note, ...update} : note)};
-}
+import {fromJS} from 'immutable';
+import Cursor from 'immutable/contrib/cursor';
 
 export default function reducer(state, action) {
-  let notes;
+
+  const idx = state.get('selected');
+  const selected = Cursor.from(state, ['notes', idx], newData => state = newData);
+  const status = Cursor.from(state, ['notes', idx, 'status'], newData => state = newData);
+  const selectedId = Cursor.from(state, ['selected'], newData => state = newData);
+  const notes = Cursor.from(state, ['notes'], newData => state = newData);
 
   switch (action.type) {
   case 'OPTIMISTIC_ADD':
     let {newNote} = action;
-    history.pushState(state, `Kevernote #${newNote.id}`, `/notes/${newNote.id}`);
-    return {notes: [{...newNote, status: 'Saving...'}, ...state.notes], selectedNoteId: newNote.id, uid: newNote.id};
+    newNote.status = 'Saving...';
+    //history.pushState(state, `Kevernote #${newNote.id}`, `/notes/${newNote.id}`);
+    selectedId.set(0);
+    notes.unshift(fromJS(newNote));
+    break;
 
   case 'ADD_COMPLETE':
-    return updateSelectedNote(state, {status: 'Saved'})
+    status.set('Saved');
+    break;
+
+  case 'ADD_FAILED':
+    status.set('Failed');
+    break;
 
   case 'SELECT':
-    history.pushState(state, `Kevernote #${action.id}`, `/notes/${action.id}`);
-    return {...state, selectedNoteId: action.id};
+    selectedId.set(action.idx);
+    break;
 
   case 'TRASH':
-    notes = state.notes.filter(note => note.id != state.selectedNoteId);
-    const selectedId = notes.length ? notes[0].id : null;
-    return {...state, notes: notes, selectedNoteId: selectedId};
+    selectedId.set(0);
+    notes.delete(idx);
+    break;
 
   case 'OPTIMISTIC_UPDATE':
-    return updateSelectedNote(state, {...action.update, status: 'Waiting...'})
-
-  case 'OPTIMISTIC_UPDATE':
-    return updateSelectedNote(state, {status: 'Saving...'})
+    selected.update(action.field, () => action.value);
+    break;
 
   case 'UPDATE_COMPLETE':
-    return updateSelectedNote(state, {status: 'Saved'})
-
-  default:
-    return state
+    status.set('Saved');
+    break;
   }
+
+  return state;
 }

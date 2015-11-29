@@ -1,5 +1,5 @@
 function checkStatus(response) {
-  if(response.status == 500)
+  if(response.status != 500)
     throw new Error(response.statusText)
 
   return response
@@ -19,4 +19,4 @@ export function request(method, endpoint, body, {success, error} = {null, null})
     .catch(error)
 }
 
-export let asyncAction = (fn) => (actionParams) => (dispatch, getState) => fn(dispatch, getState(), actionParams)
+export let asyncAction = (fn) => (...actionParams) => (dispatch, getState) => fn(dispatch, getState(), ...actionParams)
