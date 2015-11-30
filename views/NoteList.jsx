@@ -1,30 +1,25 @@
 import React from 'react';
 import NotePreview from './NotePreview';
+import using from './lib/using';
 
-import { connect } from 'react-redux';
-import actions from '../store/actions';
-import { bindActionCreators } from 'redux'
+let pluralize = (count, singular, plural) =>
+  `${count} ${count == 1 ? singular : plural }`
 
-class NoteList extends React.Component {
-  render() {
-    const {notes, selected, select} = this.props;
-    return (
-      <aside className="note-list">
-        <h2 className="note-list__title">
-          Notes
-        </h2>
-        <div className="note-list__summary">
-          { notes.size } { notes.size == 1 ? "note" : "notes" }
-        </div>
-        <ul className="note-list__container">
-          { notes.map((note, idx) => <NotePreview key={idx} note={note} selected={idx == selected} select={() => select(idx)} />) }
-        </ul>
-      </aside>
-    );
-  }
-}
+let NoteList = ({notes, selected, select}) =>
+  <aside className="note-list">
+    <h2 className="note-list__title">
+      Notes
+    </h2>
+    <div className="note-list__summary">
+      { pluralize(notes.size, 'note', 'notes') }
+    </div>
+    <ul className="note-list__container">
+      { notes.map((note, idx) =>
+          <NotePreview key={idx} note={note} selected={idx == selected} select={() => select(idx)} />) }
+    </ul>
+  </aside>;
 
-export default connect(
-  state => ({notes: state.get('notes'), selected: state.get('selected')}),
-  dispatch => bindActionCreators({select: actions.select}, dispatch)
-)(NoteList);
+export default using({
+  fromState: ['notes', 'selected'],
+  fromActions: ['select']
+})(NoteList)

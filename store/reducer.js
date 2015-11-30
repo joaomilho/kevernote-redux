@@ -3,11 +3,14 @@ import Cursor from 'immutable/contrib/cursor';
 
 export default function reducer(state, action) {
 
+  const cursor = (...position) => Cursor.from(state, position, newData => state = newData);
+
   const idx = state.get('selected');
-  const selected = Cursor.from(state, ['notes', idx], newData => state = newData);
-  const status = Cursor.from(state, ['notes', idx, 'status'], newData => state = newData);
-  const selectedId = Cursor.from(state, ['selected'], newData => state = newData);
-  const notes = Cursor.from(state, ['notes'], newData => state = newData);
+
+  const selected   = cursor('notes', idx);
+  const status     = cursor('notes', idx, 'status');
+  const selectedId = cursor('selected');
+  const notes      = cursor('notes');
 
   switch (action.type) {
   case 'OPTIMISTIC_ADD':
@@ -37,6 +40,10 @@ export default function reducer(state, action) {
 
   case 'OPTIMISTIC_UPDATE':
     selected.update(action.field, () => action.value);
+    break;
+
+  case 'UPDATE':
+    status.set('Saving...');
     break;
 
   case 'UPDATE_COMPLETE':
