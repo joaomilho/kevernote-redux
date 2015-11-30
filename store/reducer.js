@@ -3,21 +3,22 @@ import Cursor from 'immutable/contrib/cursor';
 
 export default function reducer(state, action) {
 
-  const cursor = (...position) => Cursor.from(state, position, newData => state = newData);
+  const cursor = (...position) => Cursor.from(state, position, newState => state = newState);
 
-  const idx = state.get('selected');
+  const idx = state.get('selectedIdx');
 
-  const selected   = cursor('notes', idx);
-  const status     = cursor('notes', idx, 'status');
-  const selectedId = cursor('selected');
-  const notes      = cursor('notes');
+  const selected    = cursor('notes', idx),
+        status      = cursor('notes', idx, 'status'),
+        selectedIdx = cursor('selectedIdx'),
+        notes       = cursor('notes');
+
+  const setNote = () => state.set('note', state.getIn(['notes', idx]))
 
   switch (action.type) {
   case 'OPTIMISTIC_ADD':
     let {newNote} = action;
     newNote.status = 'Saving...';
-    //history.pushState(state, `Kevernote #${newNote.id}`, `/notes/${newNote.id}`);
-    selectedId.set(0);
+    selectedIdx.set(0);
     notes.unshift(fromJS(newNote));
     break;
 
@@ -30,11 +31,11 @@ export default function reducer(state, action) {
     break;
 
   case 'SELECT':
-    selectedId.set(action.idx);
+    selectedIdx.set(action.idx);
     break;
 
   case 'TRASH':
-    selectedId.set(0);
+    selectedIdx.set(0);
     notes.delete(idx);
     break;
 
@@ -51,5 +52,5 @@ export default function reducer(state, action) {
     break;
   }
 
-  return state;
+  return setNote();
 }
